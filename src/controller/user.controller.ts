@@ -1,7 +1,7 @@
 import userService from '../service/user.service'
 
 class UserController {
-  async createUser(ctx: any, next: any) {
+  async createUser(ctx: {[key: string]: any}, next: any) {
     const user = ctx.request.body
     const res = await userService.createUser(user)
     if(!res || res[0]){
