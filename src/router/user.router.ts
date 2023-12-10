@@ -6,6 +6,6 @@ import userController from '../controller/user.controller'
 const userRouter = new KoaRouter({ prefix: '/user' })
 
 userRouter.post('/create', userController.createUser)
-userRouter.post('/login', userController.createUser)
+userRouter.post('/login', userController.login)
 
 export default userRouter

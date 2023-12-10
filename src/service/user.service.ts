@@ -9,17 +9,17 @@ class UserService {
     try{
       return await con.promise().execute(statement, [account])
     }catch(err: any){
-      console.log("@@@@", err.sqlMessage)
+      console.log("@@@@lose-createUser", err.sqlMessage)
     }
   }
   async login(accountInfo: AccountInfo) {
-    const { account } = accountInfo
+    const { account, password } = accountInfo
     // sql语句
-    const statement = 'select account from user where account = ?;'
+    const statement = 'select account, password from user where account = ? && password = ?;'
     try{
-      return await con.promise().execute(statement, [account])
+      return await con.promise().execute(statement, [account, password])
     }catch(err: any){
-      console.log("@@@@", err.sqlMessage)
+      console.log("@@@@lose-login", err.sqlMessage)
     }
   }
 }
