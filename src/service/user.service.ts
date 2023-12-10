@@ -12,6 +12,16 @@ class UserService {
       console.log("@@@@", err.sqlMessage)
     }
   }
+  async login(accountInfo: AccountInfo) {
+    const { account } = accountInfo
+    // sql语句
+    const statement = 'select account from user where account = ?;'
+    try{
+      return await con.promise().execute(statement, [account])
+    }catch(err: any){
+      console.log("@@@@", err.sqlMessage)
+    }
+  }
 }
 
 export default new UserService()
