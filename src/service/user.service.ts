@@ -2,6 +2,7 @@ import con from '../app/database'
 import { AccountInfo } from '../types'
 
 class UserService {
+  
   async createUser(accountInfo: AccountInfo) {
     const { account } = accountInfo
     // sql语句
@@ -9,9 +10,10 @@ class UserService {
     try{
       return await con.promise().execute(statement, [account])
     }catch(err: any){
-      console.log("@@@@lose-createUser", err.sqlMessage)
+      console.log("@@@lose-sql-createUser", err.sqlMessage)
     }
   }
+
   async login(accountInfo: AccountInfo) {
     const { account, password } = accountInfo
     // sql语句
@@ -19,7 +21,7 @@ class UserService {
     try{
       return await con.promise().execute(statement, [account, password])
     }catch(err: any){
-      console.log("@@@@lose-login", err.sqlMessage)
+      console.log("@@@lose-sql-login", err.sqlMessage)
     }
   }
 }
