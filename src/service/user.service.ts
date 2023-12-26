@@ -5,6 +5,7 @@ class UserService {
   
   async createUser(accountInfo: AccountInfo) {
     const { account } = accountInfo
+    console.log(account)
     // sql语句
     const statement = 'select account from user where account = ?;'
     try{

@@ -6,6 +6,7 @@ class UserController {
   async createUser(ctx: Context, next: any) {
     const user = ctx.request.body as AccountInfo
     const res = await userService.createUser(user)
+    console.log(res)
     if(!res || res[0]){
       ctx.body = {
         message: '创建用户失败',
