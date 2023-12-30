@@ -1,9 +1,9 @@
 import userService from '../service/user.service'
-import type { Context } from 'koa'
+import type { Context,Next } from 'koa'
 import type { AccountInfo } from './../types/user.types';
 
 class UserController {
-  async createUser(ctx: Context, next: any) {
+  async createUser(ctx: Context, next: Next) {
     const user = ctx.request.body as AccountInfo
     const res = await userService.createUser(user)
     console.log(res)
@@ -18,7 +18,7 @@ class UserController {
       data: true
     }
   }
-  async login(ctx: Context, next: any) {
+  async login(ctx: Context, next: Next) {
     const user = ctx.request.body as AccountInfo
     const res = await userService.login(user) // 查库
 
