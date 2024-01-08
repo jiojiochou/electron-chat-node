@@ -20,6 +20,7 @@ class UserController {
     }
   }
 
+  // 账号登录
   async login(ctx: Context, next: Next) {
     const user = ctx.request.body as AccountInfo
     const res = await userService.login(user) // 查库
@@ -28,7 +29,7 @@ class UserController {
 
     if(isNotExist){
       ctx.body = {
-        message: '登录失败',
+        message: '账号或者密码不正确',
         data: false
       }
     } else {
@@ -40,21 +41,43 @@ class UserController {
   }
 
   async contact(ctx: Context, next: Next) {
-    const { id } = ctx.request.body as { id: number | undefined };
-    const res = await userService.contact(id)
+    const body = Object.keys(ctx.request.body as {}).length
+    if(body){
+      const { id } = ctx.request.body as { id: number | undefined };
+      const res = await userService.contact(id)
 
-    const isNotExist = res === undefined || Object.keys(res[0]).length === 0
-    // console.log(isNotExist)
+      const isNotExist = res === undefined || Object.keys(res[0]).length === 0
+      // console.log(isNotExist)
 
-    if(isNotExist){
-      ctx.body = {
-        message: '查询成功',
-        data: []
+      if(isNotExist){
+        ctx.body = {
+          message: '查询成功',
+          data: []
+        }
+      } else {
+        ctx.body = {
+          message: '查询成功',
+          data: res[0]
+        }
       }
     } else {
-      ctx.body = {
-        message: '查询成功',
-        data: res[0]
+      const params = ctx.request.url.split('?')
+      const urlSearch = new URLSearchParams(params[1])
+      const res = await userService.contact(Number(urlSearch.get('id')))
+
+      const isNotExist = res === undefined || Object.keys(res[0]).length === 0
+      // console.log(isNotExist)
+
+      if(isNotExist){
+        ctx.body = {
+          message: '查询成功',
+          data: []
+        }
+      } else {
+        ctx.body = {
+          message: '查询成功',
+          data: res[0]
+        }
       }
     }
   }

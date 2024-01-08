@@ -21,7 +21,8 @@ class UserService {
     try {
       return await con.promise().execute(statement, [account, password])
     } catch (err: any){
-      console.log("@@@lose-sql-login", err.sqlMessage)
+      return err
+      // console.log("@@@lose-sql-login", err.sqlMessage)
     }
   }
 
